@@ -5,7 +5,6 @@ MidiMsg msg;
 
 mout.open(port);
 
-
 fun void send(int note, int velocity) {
     144 => msg.data1;
     note => msg.data2;
