@@ -12,7 +12,7 @@ public class Grammary {
        
        "0" +=> text; // Finish with ZERO   
                         
-        <<< "generate ->", trimZero(text) >>>;
+        <<< "Generated ->", trimZero(text) >>>;
                 
         return text;
     }
@@ -46,7 +46,7 @@ public class Grammary {
             }
         }
         
-        <<< "replace ->", trimZero(play) >>>;
+        //<<< "replace ->", trimZero(play) >>>;
         
         return play;
     }            

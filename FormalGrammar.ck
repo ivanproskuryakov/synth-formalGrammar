@@ -1,3 +1,7 @@
+MidiOut mout;
+MidiMsg msg;
+Grammary g;
+
 string grammar[0];
 "abB" @=> grammar["A"];
 "eCa" @=> grammar["B"];
@@ -10,21 +14,35 @@ string grammar[0];
 "adJ" @=> grammar["I"];
 "aaa" @=> grammar["J"];
 
-Grammary g;
+1 => int lengthPlay;
+0.5 => float duration;
+0 => int port;
 
-10 => int length;
-g.buildPlay(grammar, length) @=> string play;
+mout.open(port);
 
-now + length::second => time later;
-
-while (true) {
-    1::second => now;
-    (later - now)/second => float timeLeft;
-
-    <<< timeLeft, play >>>;
-    
-    if (now == later) {
-        g.buildPlay(grammar, length) @=> string play;
-        now + length::second => later;
-    }
+fun void sendMidi(int note, int velocity) {
+    144 => msg.data1;
+    note => msg.data2;
+    velocity => msg.data3;
+    mout.send(msg);
 }
+
+fun int runPlay(int lengthPlay){
+    g.buildPlay(grammar, lengthPlay) @=> string play;
+    
+    for(0 => int i; i < play.length(); i++){
+        play.substring(i, 1) @=> string letter;
+        play.charAt(i) => int code; 
+        
+        duration::second => now;
+        sendMidi(code, code);
+       
+        <<< letter, code >>>;
+    }
+    
+    <<< "Finished, generating new grammar and relaunching... " >>>;
+    
+    runPlay(lengthPlay);
+};
+
+runPlay(lengthPlay);
