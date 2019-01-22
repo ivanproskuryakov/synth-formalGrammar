@@ -3,19 +3,19 @@ MidiMsg msg;
 Grammary g;
 
 string grammar[0];
-"abB" @=> grammar["A"];
-"eCa" @=> grammar["B"];
-"aaD" @=> grammar["C"];
-"ccE" @=> grammar["D"];
-"xcF" @=> grammar["E"];
-"afG" @=> grammar["F"];
-"aaH" @=> grammar["G"];
-"acI" @=> grammar["H"];
-"adJ" @=> grammar["I"];
-"aaa" @=> grammar["J"];
+"12B" @=> grammar["A"];
+"2C1" @=> grammar["B"];
+"32D" @=> grammar["C"];
+"4E1" @=> grammar["D"];
+"5F1" @=> grammar["E"];
+"62G" @=> grammar["F"];
+"72H" @=> grammar["G"];
+"82I" @=> grammar["H"];
+"91J" @=> grammar["I"];
+"151" @=> grammar["J"];
 
 1 => int lengthPlay;
-0.5 => float duration;
+1 => float duration;
 0 => int port;
 
 mout.open(port);
@@ -31,13 +31,13 @@ fun int runPlay(int lengthPlay){
     g.buildPlay(grammar, lengthPlay) @=> string play;
     
     for(0 => int i; i < play.length(); i++){
-        play.substring(i, 1) @=> string letter;
-        play.charAt(i) => int code; 
+        play.substring(i, 1).toInt() @=> int note;
+        play.charAt(i) => int velocity; 
         
         duration::second => now;
-        sendMidi(code, code);
+        sendMidi(note, note);
        
-        <<< letter, code >>>;
+        <<< note, velocity >>>;
     }
     
     <<< "Finished, generating new grammar and relaunching... " >>>;
