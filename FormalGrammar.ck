@@ -22,8 +22,8 @@ mout.open(port) => int res;
 <<< res >>>;
 
 fun void sendMidi(int note, int velocity) {
-    note => msg.data1;
-    velocity => msg.data2;
+    144 => msg.data1;
+    note => msg.data2;
     velocity => msg.data3;
     mout.send(msg);
 }
