@@ -12,9 +12,10 @@ string grammar[0];
 
 Grammary g;
 
-g.buildPlay(grammar) @=> string play;
+10 => int length;
+g.buildPlay(grammar, length) @=> string play;
 
-now + 10::second => time later;
+now + length::second => time later;
 
 while (true) {
     1::second => now;
@@ -23,7 +24,7 @@ while (true) {
     <<< timeLeft, play >>>;
     
     if (now == later) {
-        g.buildPlay(grammar) @=> string play;
-        now + 10::second => later;
+        g.buildPlay(grammar, length) @=> string play;
+        now + length::second => later;
     }
 }

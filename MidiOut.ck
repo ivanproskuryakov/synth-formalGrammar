@@ -13,9 +13,13 @@ fun void send(int note, int velocity) {
 }
 
 while (true) {
-    Math.random2(0, 127) => int arm;
-    Math.random2(0, 127) => int volume;
-    send(arm, volume);
+    Math.random2(0, 127) => int note;
+    Math.random2(0, 127) => int velocity;
+
+    send(
+      note, 
+      velocity
+    );
     
-    .5::second => now;
+    1::second => now;
 }
