@@ -3,22 +3,23 @@ MidiMsg msg;
 Grammary g;
 
 string grammar[0];
-"12B" @=> grammar["A"];
+"49B" @=> grammar["A"];
 "2C9" @=> grammar["B"];
-"32D" @=> grammar["C"];
-"4E9" @=> grammar["D"];
+"39D" @=> grammar["C"];
+"499" @=> grammar["D"];
 "5F9" @=> grammar["E"];
-"62G" @=> grammar["F"];
-"72H" @=> grammar["G"];
-"82I" @=> grammar["H"];
-"91J" @=> grammar["I"];
-"156" @=> grammar["J"];
+"64G" @=> grammar["F"];
+"71H" @=> grammar["G"];
+"81I" @=> grammar["H"];
+"93J" @=> grammar["I"];
+"456" @=> grammar["J"];
 
 1 => int lengthPlay;
-10 => float duration;
+1 => float duration;
 0 => int port;
 
-mout.open(port);
+mout.open(port) => int res;
+<<< res >>>;
 
 fun void sendMidi(int note, int velocity) {
     note => msg.data1;
@@ -32,8 +33,8 @@ fun int runPlay(int lengthPlay){
     
     for(0 => int i; i < play.length(); i++){
         play.substring(i, 1).toInt() @=> int note;
-        play.charAt(i) => int velocity; -
-        
+        play.charAt(i) => int velocity;
+                
         duration::second => now;
         sendMidi(note, velocity);
        
@@ -45,4 +46,6 @@ fun int runPlay(int lengthPlay){
     runPlay(lengthPlay);
 };
 
+<<< "Starting ... " >>>;
+    
 runPlay(lengthPlay);
